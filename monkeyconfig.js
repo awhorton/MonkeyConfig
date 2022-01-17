@@ -48,11 +48,11 @@ function MonkeyConfig() {
             
             if (data.title === undefined)
                 /*
-                 * If GM_getMetadata is available, get the name of the script
+                 * If GM.getMetadata is available, get the name of the script
                  * and use it in the dialog title
                  */
-                if (typeof GM_getMetadata == 'function') {
-                    var scriptName = GM_getMetadata('name');
+                if (typeof GM.getMetadata == 'function') {
+                    var scriptName = GM.getMetadata('name');
                     data.title = scriptName + ' Configuration'; 
                 }
                 else
@@ -68,8 +68,8 @@ function MonkeyConfig() {
         var storedValues;
         
         /* Load stored values (if present) */
-        if (GM_getValue(storageKey))
-            storedValues = JSON.parse(GM_getValue(storageKey));
+        if (GM.getValue(storageKey))
+            storedValues = JSON.parse(GM.getValue(storageKey));
 
         for (var name in params) {
             /* If there's a value defined in the passed data object, use it */
@@ -90,7 +90,7 @@ function MonkeyConfig() {
             var caption = data.menuCommand !== true ? data.menuCommand :
                 data.title;
             
-            GM_registerMenuCommand(caption, function () { cfg.open(); });
+            GM.registerMenuCommand(caption, function () { cfg.open(); });
         }
 
         /* Expose public methods */
@@ -444,7 +444,7 @@ function MonkeyConfig() {
         case 'iframe':
         default:
             if (!MonkeyConfig.styleAdded) {
-                GM_addStyle(MonkeyConfig.res.stylesheets.main);
+                GM.addStyle(MonkeyConfig.res.stylesheets.main);
                 MonkeyConfig.styleAdded = true;
             }
         
